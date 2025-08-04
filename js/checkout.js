@@ -5,7 +5,7 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; /
 import {deliveryOptions} from '../data/deliveryOptions.js';
 
 
-
+function renderOrderSummary(){
 let cartHTML = '';
     cart.forEach((cartItem, index) => {
         const productId = cartItem.productId;
@@ -67,9 +67,6 @@ let cartHTML = '';
             </div>`;
     });
 document.querySelector('.js-order-summary').innerHTML = cartHTML;
-headerCartQuantity(); // Update the cart quantity in the header
-
-
 
 document.querySelectorAll('.js-delete-link').forEach(link => {
     link.addEventListener('click', () => {
@@ -79,6 +76,21 @@ document.querySelectorAll('.js-delete-link').forEach(link => {
         headerCartQuantity(); // Update the cart quantity in the header
     });
 });
+document.querySelectorAll('.delivery-option-input').forEach(input => {
+    input.addEventListener('click', () => {
+        const {productId, deliveryId} = input.dataset;
+        updateDeliveryOption(productId,deliveryId);
+        renderOrderSummary();
+    });
+});
+
+}
+renderOrderSummary();
+headerCartQuantity(); // Update the cart quantity in the header
+
+
+
+
 
 function deliveryOptionsHTML(matchingProduct, cartItem) {
     let html = '';
@@ -106,14 +118,6 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
     });
     return html;
 }
-
-
-document.querySelectorAll('.delivery-option-input').forEach(input => {
-    input.addEventListener('click', () => {
-        const {productId, deliveryId} = input.dataset;
-        updateDeliveryOption(productId,deliveryId);
-    });
-});
 
 function headerCartQuantity(){
     let cartQuantity = 0;
