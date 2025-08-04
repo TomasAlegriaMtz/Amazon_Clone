@@ -1,19 +1,17 @@
 import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart.js'; // Importing the cart array from cart.js
-import {products} from '../../data/products.js'; // Importing the products array from products.js
+import {products, getProduct} from '../../data/products.js'; // Importing the products array from products.js
 import {formatCurrency} from '../utils/money.js'; // Importing the formatCurrency function
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; // default export - without {} and can be only one per file
 import {deliveryOptions} from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 
 export function renderOrderSummary(){
 let cartHTML = '';
     cart.forEach((cartItem, index) => {
         const productId = cartItem.productId;
-        let matchingProduct;
-
-        products.forEach(product => {
-            product.id === productId && (matchingProduct = product);
-        });
+       
+        const matchingProduct = getProduct(productId);
 
         const deliveryOptionId= cartItem.deliveryOptionId;
         let deliveryOption;
@@ -74,6 +72,7 @@ document.querySelectorAll('.js-delete-link').forEach(link => {
         removeFromCart(productId); // Remove the item from the cart
         document.querySelector(`.js-cart-item-${productId}`).remove(); // Remove the item from the DOM
         headerCartQuantity(); // Update the cart quantity in the header
+        renderPaymentSummary();
     });
 });
 document.querySelectorAll('.delivery-option-input').forEach(input => {
@@ -81,6 +80,7 @@ document.querySelectorAll('.delivery-option-input').forEach(input => {
         const {productId, deliveryId} = input.dataset;
         updateDeliveryOption(productId,deliveryId);
         renderOrderSummary();
+        renderPaymentSummary();
     });
 });
 
