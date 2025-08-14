@@ -24,7 +24,7 @@ products.forEach(product => {
           </div>
 
           <div class="product-price">
-            ${product.getPrice()}/* Convert cents to dollars and format to 2 decimal places */}
+            ${product.getPrice()}
           </div>
 
           <div class="product-quantity-container">
@@ -41,6 +41,8 @@ products.forEach(product => {
               <option value="10">10</option>
             </select>
           </div>
+
+          ${product.extraInfoHTML()}
 
           <div class="product-spacer"></div>
 
