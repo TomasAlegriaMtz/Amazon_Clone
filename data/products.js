@@ -47,24 +47,45 @@ class Clothing extends Product{
     `;
   }
 }
-const tshirt = new Clothing({
-  id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
-    image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
-    name: "Adults Plain Cotton T-Shirt - 2 Pack",
-    rating: {
-      stars: 4.5,
-      count: 56
-    },
-    priceCents: 799,
-    keywords: [
-      "tshirts",
-      "apparel",
-      "mens"
-    ],
-    type: "clothing",
-    sizeChartLink: "images/clothing-size-chart.png"
-});
-console.log(tshirt);
+
+/*Built in classes
+const date = new Date();
+console.log(date);
+console.loog(date.toLocaleTimeString());
+*/
+/* more  details about this
+console.log(this); // undefined
+const object2 = {
+  a: 2,
+  b: this.a // error
+};
+*/
+
+/*
+//this for normal functions
+function logThis(){
+  console.log(this);
+}
+logThis();//undefined
+logThis.call('hello');//this = hello
+
+//this for arrow functions
+this // undefined
+const object3 = {
+  method : () => {
+    console.log(this);// also undefined. keeps the value that it had outside the arrow function.
+  }
+}
+object3.method(); //undefined
+*/
+
+/* Summary of this
+1. inside a method, 'this' points to the outer object
+2. inside a function, this = undefined but we can change it with .call()
+2 arrow functions do not change the value of 'this'
+*/
+
+
 
 export const products = [
   {
